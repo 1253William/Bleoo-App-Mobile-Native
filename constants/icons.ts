@@ -3,6 +3,7 @@ import search from "@/assets/icons/search.png";
 import person from "@/assets/icons/person.png";
 import chat from "@/assets/icons/chat.png";
 import bell from "@/assets/icons/bell.png";
+import repeat from "@/assets/icons/repeat.png";
 
 
 export const icons = {
@@ -11,4 +12,5 @@ export const icons = {
     person: person,
     chat: chat,
     bell: bell,
+    repeat: repeat,
 }

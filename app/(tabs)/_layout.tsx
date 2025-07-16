@@ -1,7 +1,8 @@
 import { icons } from '@/constants/icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React, { useEffect, useRef } from 'react';
-import { Animated, Image, StyleSheet, View } from 'react-native';
+import { Animated, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const TabIcon = ({ focused, icon, title }: any) => {
   const indicatorAnim = useRef(new Animated.Value(0)).current;
@@ -33,7 +34,7 @@ const TabIcon = ({ focused, icon, title }: any) => {
   };
 
   return (
-    <View className="size-full justify-center items-center mt-4 rounded-full bg-white">
+    <View className="size-full justify-center items-center mt-4 rounded-full bg-white" >
       <Image
         source={icon}
         tintColor={focused ? '#002D69' : '#000'}
@@ -68,7 +69,6 @@ const _Layout = () => {
           alignItems: 'center',
         },
         tabBarStyle: {
-         
           borderRadius: 50,
           marginHorizontal: 10,
           marginBottom: 36,
@@ -85,49 +85,93 @@ const _Layout = () => {
       <Tabs.Screen
         name='index'
         options={{
-          title: 'Home',
+          headerBackground: () => (
+            <View className="bg-[#002D69] h-32 absolute w-full" />
+          ),
+          title: 'HOME',
+          headerTitleStyle: {
+            fontFamily: 'Gilroy-SemiBold',
+            color: '#fff',
+          },
+          headerLeft: () => (
+      <TouchableOpacity onPress={() => console.log("Settings pressed")} className="ml-4">
+        <Ionicons name="settings-outline" size={24} color="#fff" />
+      </TouchableOpacity>
+    ),
+    headerRight: () => (
+      <TouchableOpacity onPress={() => console.log("Profile pressed")} className="mr-4">
+        <Image
+          source={{ uri: "https://plus.unsplash.com/premium_photo-1747504296823-71ded9ee2b15?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }} // replace with your avatar URL
+          className="w-8 h-8 rounded-full"
+        />
+      </TouchableOpacity>
+    ),
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.home} title='Home' />
+            <TabIcon focused={focused} icon={icons.home} title='HOME' />
           ),
         }}
       />
       <Tabs.Screen
         name='search'
         options={{
-          title: 'Search',
-          headerShown: false,
+          headerBackground: () => (
+            <View className="bg-[#002D69] h-32 absolute w-full" />
+          ),
+          title: 'SEARCH',
+          headerTitleStyle: {
+            fontFamily: 'Gilroy-SemiBold',
+            color: '#fff',
+          },
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.search} title='Search' />
+            <TabIcon focused={focused} icon={icons.search} title='SEARCH' />
           ),
         }}
       />
       <Tabs.Screen
-        name='chat'
+      name='chat'
         options={{
-          title: 'Chat',
-          headerShown: false,
+          headerBackground: () => (
+            <View className="bg-[#002D69] h-32 absolute w-full" />
+          ),
+          title: 'CHAT',
+          headerTitleStyle: {
+            fontFamily: 'Gilroy-SemiBold',
+            color: '#fff',
+          },
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.chat} title='Profile' />
+            <TabIcon focused={focused} icon={icons.chat} title='CHAT' />
           ),
         }}
       />
       <Tabs.Screen
         name='community'
         options={{
-          title: 'Community',
-          headerShown: false,
+          headerBackground: () => (
+            <View className="bg-[#002D69] h-32 absolute w-full" />
+          ),
+          title: 'COMMUNITY',
+           headerTitleStyle: {
+            fontFamily: 'Gilroy-SemiBold',
+            color: '#fff',
+          },
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.person} title='Chat' />
+            <TabIcon focused={focused} icon={icons.person} title='COMMUNITY' />
           ),
         }}
       />
       <Tabs.Screen
         name='notifications'
         options={{
-          title: 'Notifications',
-          headerShown: false,
+          headerBackground: () => (
+            <View className="bg-[#002D69] h-32 absolute w-full" />
+          ),
+          title: 'NOTIFICATIONS',
+          headerTitleStyle: {
+            fontFamily: 'Gilroy-SemiBold',
+            color: '#fff',
+          },
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.bell} title='Saved' />
+            <TabIcon focused={focused} icon={icons.bell} title='NOTIFICATIONS' />
           ),
         }}
       />

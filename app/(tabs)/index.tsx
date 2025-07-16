@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
 import React from 'react'
+import FeedScreen from '../screens/home/feed-screen'
+import { View } from 'react-native'
 
 const Index = () => {
-  return (
-    <View>
-      <Text>Index</Text>
+  return  (
+    <View className='flex-1 bg-white p-4'>
+      <FeedScreen />
     </View>
   )
 }
