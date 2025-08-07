@@ -21,8 +21,11 @@ const handleNext = () => {
   useRegisterStore.getState().setRegisterData({
     fullName: fullName,
     userName: userName,
-    email: email
+    email: email,
+    yearGroup: yearGroup,
+    occupation: occupation,
   });
+
   router.push("/screens/auth/register/year-group");
 };
 
@@ -42,7 +45,7 @@ const handleNext = () => {
         <TouchableOpacity onPress={handleBack} className="mr-4">
           <Ionicons name="arrow-back" size={24} color="#374151" />
         </TouchableOpacity>
-        <Text style={{fontFamily:"Gilroy-Medium"}} className="text-lg font-semibold text-gray-900">Register</Text>
+        <Text style={{fontFamily:"Gilroy-SemiBold"}} className="text-xl font-semibold text-gray-900">Register</Text>
       </View>
 
       {/* Content */}

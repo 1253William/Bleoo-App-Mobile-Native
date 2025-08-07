@@ -51,7 +51,7 @@ try {
 }
   }
   const handleForgotPassword = () => {
-    Alert.alert("Forgot Password", "Password reset link will be sent to your email")
+    router.push("/screens/auth/forgot-password/forgot-password")
   }
 
   return (
@@ -83,7 +83,7 @@ try {
             <View className="mb-6">
               <View className="relative">
                 <TextInput
-                  className="h-14 w-full border border-gray-300 rounded-full px-6 pr-12 pb-4 text-lg text-gray-800 bg-white"
+                  className="h-14 w-full border border-gray-300 rounded-full px-6 pr-12 text-lg text-gray-800 bg-white"
                   placeholder="Email address"
                   placeholderTextColor="#9ca3af"
                   value={email}

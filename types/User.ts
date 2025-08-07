@@ -1,14 +1,12 @@
 export type User = {
   id: number;
-  first_name: string;
-  last_name: string;
   email: string;
-  year_group: string;
+  yearGroup: string;
   occupation: string;
-  class: string;
+  yearClass: string;
   residency: string;
   hall: string;
-  affiliated_groups: string;
+  affiliatedGroups: string[];
   };
 
   export type AuthStoreData = {

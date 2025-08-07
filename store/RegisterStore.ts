@@ -7,6 +7,12 @@ export type RegisterFormData = {
   studentStatus: string;
   email: string;
   password: string;
+  yearClass?: string;
+  residency?: string;
+  hall?: string;
+  affiliatedGroups?: string[];
+  yearGroup?: string;
+  occupation?: string;
 };
 
 interface RegisterStore {

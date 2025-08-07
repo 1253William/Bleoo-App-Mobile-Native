@@ -1,8 +1,10 @@
-"use client"
-
+import { router } from "expo-router"
+import React, { useState } from "react"
 import { FlatList, RefreshControl, View } from "react-native"
+import CreatePostModal from "./create-post-modal"
 import FeedCard from "./feed-card"
 import FloatingAddButton from "./floating-add-button"
+import MediaPermissionModal from "./media-permission-modal"
 
 interface Post {
   id: string
@@ -37,6 +39,43 @@ interface FeedListProps {
 }
 
 export default function FeedList({ posts, onRefresh, onLoadMore, onAddPost, refreshing = false }: FeedListProps) {
+  const [createPostVisible, setCreatePostVisible] = useState(false);
+  const [permissionVisible, setPermissionVisible] = useState(false);
+  const [permissionType, setPermissionType] = useState<'camera' | 'photos'>('photos');
+
+  const handleSelectCamera = () => {
+    setPermissionType('camera');
+    setPermissionVisible(true);
+  };
+
+  const handleSelectLibrary = () => {
+    setPermissionType('photos');
+    setPermissionVisible(true);
+  };
+
+  const handleSelectVideo = () => {
+    setPermissionType('camera');
+    setPermissionVisible(true);
+  };
+
+  const handleAllowAccess = () => {
+    setPermissionVisible(false);
+    // Navigate to appropriate screen based on permission type
+    if (permissionType === 'photos') {
+      router.push('/screens/home/media-selection-screen');
+    } else {
+      // Open camera
+      console.log('Open camera');
+    }
+  };
+
+  const handleDenyAccess = () => {
+    setPermissionVisible(false);
+    // Handle denied permission
+    console.log('Permission denied');
+  };
+
+
   const handleComment = (postId: string) => {
     console.log("Comment on post:", postId)
   }
@@ -74,7 +113,23 @@ export default function FeedList({ posts, onRefresh, onLoadMore, onAddPost, refr
         onEndReachedThreshold={0.1}
         showsVerticalScrollIndicator={false}
       />
-      <FloatingAddButton onPress={onAddPost || (() => {})} />
+      <FloatingAddButton  onPress={() => setCreatePostVisible(true)} />
+
+        <CreatePostModal
+        visible={createPostVisible}
+        onClose={() => setCreatePostVisible(false)}
+        onSelectCamera={handleSelectCamera}
+        onSelectLibrary={handleSelectLibrary}
+        onSelectVideo={handleSelectVideo}
+      />
+
+      <MediaPermissionModal
+        visible={permissionVisible}
+        onClose={() => setPermissionVisible(false)}
+        onAllowAccess={handleAllowAccess}
+        onDenyAccess={handleDenyAccess}
+        permissionType={permissionType}
+      />
     </View>
   )
 }

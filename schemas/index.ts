@@ -63,3 +63,13 @@ export const resetPasswordSchema = z
   });
 
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .max(100, { message: "Email must be less than 100 characters" })
+    .transform((val) => val.trim().toLowerCase()),
+});
+
+export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;

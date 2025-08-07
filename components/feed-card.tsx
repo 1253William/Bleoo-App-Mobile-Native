@@ -1,7 +1,8 @@
+import { icons } from "@/constants/icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { icons } from "@/constants/icons";
+import PostActionsModal from "./post-actions-modal";
 
 interface PostSettings {
   allowComments: boolean;
@@ -42,6 +43,7 @@ export default function FeedCard({ post, onComment, onRepost, onLike, onShare }:
   const [isReposted, setIsReposted] = useState(post.isReposted || false);
   const [likeCount, setLikeCount] = useState(post.stats.likes);
   const [repostCount, setRepostCount] = useState(post.stats.reposts);
+  const [showActionsModal, setShowActionsModal] = useState(false);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -83,7 +85,7 @@ const repeatIcon = icons.repeat;
           </View>
         </View>
 
-        <TouchableOpacity className="p-2">
+        <TouchableOpacity className="p-2" onPress={() => setShowActionsModal(true)}>
           <Ionicons name="ellipsis-horizontal" size={20} color="#6b7280" />
         </TouchableOpacity>
       </View>
@@ -142,7 +144,48 @@ const repeatIcon = icons.repeat;
         >
           <Ionicons name="share-social-outline" size={20} color="#6b7280" />
         </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => post.settings.allowShares && onShare?.(post.id)}
+          className={`flex-row items-center ${!post.settings.allowShares ? "opacity-50" : ""}`}
+          disabled={!post.settings.allowShares}
+        >
+          <Ionicons name="bookmark-outline" size={20} color="#6b7280" />
+        </TouchableOpacity>
       </View>
+      <PostActionsModal
+      visible={showActionsModal}
+      onClose={() => setShowActionsModal(false)}
+      isOwnPost={true} // or false based on logic
+      onEdit={() => {
+        setShowActionsModal(false);
+        console.log('Edit Pressed');
+        // your edit logic here
+      }}
+      onDelete={() => {
+        setShowActionsModal(false);
+        console.log('Delete Pressed');
+        // your delete logic here
+      }}
+      onShare={() => {
+        setShowActionsModal(false);
+        console.log('Share Pressed');
+        // share logic here
+      }}
+      onSavePost={() => {
+        setShowActionsModal(false);
+        console.log('Saved Post');
+        // save logic here
+      }}
+      onHidePost={() => {
+        setShowActionsModal(false);
+        console.log('Hide Post');
+      }}
+      onReport={() => {
+        setShowActionsModal(false);
+        console.log('Report Pressed');
+      }}
+/>
     </View>
   );
 }

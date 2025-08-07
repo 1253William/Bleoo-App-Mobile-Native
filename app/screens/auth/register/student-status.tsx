@@ -28,7 +28,7 @@ const handleNext = () => {
         <TouchableOpacity onPress={handleBack} className="mr-4">
           <Ionicons name="arrow-back" size={24} color="#374151" />
         </TouchableOpacity>
-        <Text style={{fontFamily:"Gilroy-Medium"}} className="text-lg font-semibold text-gray-900">Select Student Status</Text>
+        <Text style={{fontFamily:"Gilroy-SemiBold"}} className="text-xl  font-semibold text-gray-900">Select Student Status</Text>
       </View>
 
       <View className="flex-1 px-6 pt-8">

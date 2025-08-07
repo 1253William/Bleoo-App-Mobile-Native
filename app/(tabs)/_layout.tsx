@@ -1,7 +1,8 @@
+import ProfileDrawer from '@/components/profile-drawer';
 import { icons } from '@/constants/icons';
 import { Ionicons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
-import React, { useEffect, useRef } from 'react';
+import { router, Tabs } from 'expo-router';
+import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const TabIcon = ({ focused, icon, title }: any) => {
@@ -57,7 +58,37 @@ const TabIcon = ({ focused, icon, title }: any) => {
 
 
 const _Layout = () => {
+    const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+
+     const user = {
+    name: 'Joshua User',
+    username: '@joshuser',
+    avatar: 'https://plus.unsplash.com/premium_photo-1747504296823-71ded9ee2b15?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  };
+
+  const handleNavigate = (screen: string) => {
+    console.log(`Navigate to ${screen}`);
+    // Add your navigation logic here
+  };
+
+  const handleLogout = () => {
+    console.log('Logout');
+    // Add your logout logic here
+  };
+  
+  const handleProfilePress = () => {
+    router.push('/(tabs)/profile');
+  };
   return (
+    <>
+      <ProfileDrawer
+        isVisible={isDrawerVisible}
+        onClose={() => setIsDrawerVisible(false)}
+        user={user}
+        onNavigate={handleNavigate}
+        onLogout={handleLogout}
+      />
+
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
@@ -86,23 +117,24 @@ const _Layout = () => {
         name='index'
         options={{
           headerBackground: () => (
-            <View className="bg-[#002D69] h-32 absolute w-full" />
+            <View className="bg-[#002D69] h-28 absolute w-full" />
           ),
           title: 'HOME',
           headerTitleStyle: {
             fontFamily: 'Gilroy-SemiBold',
             color: '#fff',
+            
           },
           headerLeft: () => (
-      <TouchableOpacity onPress={() => console.log("Settings pressed")} className="ml-4">
-        <Ionicons name="settings-outline" size={24} color="#fff" />
+      <TouchableOpacity onPress={() => setIsDrawerVisible(true)} className="ml-4">
+        <Ionicons name="settings-outline" size={28} color="#fff" />
       </TouchableOpacity>
     ),
     headerRight: () => (
-      <TouchableOpacity onPress={() => console.log("Profile pressed")} className="mr-4">
+      <TouchableOpacity onPress={handleProfilePress} className="mr-4">
         <Image
           source={{ uri: "https://plus.unsplash.com/premium_photo-1747504296823-71ded9ee2b15?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }} // replace with your avatar URL
-          className="w-8 h-8 rounded-full"
+          className="w-10 h-10 rounded-full"
         />
       </TouchableOpacity>
     ),
@@ -115,7 +147,7 @@ const _Layout = () => {
         name='search'
         options={{
           headerBackground: () => (
-            <View className="bg-[#002D69] h-32 absolute w-full" />
+            <View className="bg-[#002D69] h-28 absolute w-full" />
           ),
           title: 'SEARCH',
           headerTitleStyle: {
@@ -125,15 +157,23 @@ const _Layout = () => {
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} icon={icons.search} title='SEARCH' />
           ),
+           headerLeft: () => (
+      <TouchableOpacity onPress={handleProfilePress} className="ml-4">
+        <Image
+          source={{ uri: "https://plus.unsplash.com/premium_photo-1747504296823-71ded9ee2b15?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }} // replace with your avatar URL
+          className="w-10 h-10 rounded-full"
+        />
+      </TouchableOpacity>
+    ),
         }}
       />
       <Tabs.Screen
-      name='chat'
+      name='messaging'
         options={{
           headerBackground: () => (
-            <View className="bg-[#002D69] h-32 absolute w-full" />
+            <View className="bg-[#002D69] h-28 absolute w-full" />
           ),
-          title: 'CHAT',
+          title: 'MESSAGING',
           headerTitleStyle: {
             fontFamily: 'Gilroy-SemiBold',
             color: '#fff',
@@ -141,13 +181,21 @@ const _Layout = () => {
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} icon={icons.chat} title='CHAT' />
           ),
+           headerLeft: () => (
+      <TouchableOpacity onPress={handleProfilePress} className="ml-4">
+        <Image
+          source={{ uri: "https://plus.unsplash.com/premium_photo-1747504296823-71ded9ee2b15?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }} // replace with your avatar URL
+          className="w-10 h-10 rounded-full"
+        />
+      </TouchableOpacity>
+    ),
         }}
       />
       <Tabs.Screen
         name='community'
         options={{
           headerBackground: () => (
-            <View className="bg-[#002D69] h-32 absolute w-full" />
+            <View className="bg-[#002D69] h-28 absolute w-full" />
           ),
           title: 'COMMUNITY',
            headerTitleStyle: {
@@ -157,13 +205,21 @@ const _Layout = () => {
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} icon={icons.person} title='COMMUNITY' />
           ),
+           headerLeft: () => (
+      <TouchableOpacity onPress={handleProfilePress} className="ml-4">
+        <Image
+          source={{ uri: "https://plus.unsplash.com/premium_photo-1747504296823-71ded9ee2b15?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }} // replace with your avatar URL
+          className="w-10 h-10 rounded-full"
+        />
+      </TouchableOpacity>
+    ),
         }}
       />
       <Tabs.Screen
         name='notifications'
         options={{
           headerBackground: () => (
-            <View className="bg-[#002D69] h-32 absolute w-full" />
+            <View className="bg-[#002D69] h-28 absolute w-full" />
           ),
           title: 'NOTIFICATIONS',
           headerTitleStyle: {
@@ -173,9 +229,60 @@ const _Layout = () => {
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} icon={icons.bell} title='NOTIFICATIONS' />
           ),
+           headerLeft: () => (
+      <TouchableOpacity onPress={handleProfilePress} className="ml-4">
+        <Image
+          source={{ uri: "https://plus.unsplash.com/premium_photo-1747504296823-71ded9ee2b15?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }} // replace with your avatar URL
+          className="w-10 h-10 rounded-full"
+        />
+      </TouchableOpacity>
+    ),
         }}
       />
+      <Tabs.Screen
+      options={{
+        headerShown: false,
+        href: null, 
+      }}
+    name="profile"
+  />
+      <Tabs.Screen
+      options={{
+        headerShown: false,
+        href: null, 
+      }}
+    name="chat"
+    />
+      <Tabs.Screen
+      options={{
+        headerShown: false,
+        href: null, 
+      }}
+    name="settings"
+    />
+      <Tabs.Screen
+      options={{
+        headerShown: false,
+        href: null, 
+      }}
+    name="community/community-profile-screen"
+    />
+      <Tabs.Screen
+      options={{
+        headerShown: false,
+        href: null, 
+      }}
+    name="community/community-settings-screen"
+    />
+      <Tabs.Screen
+      options={{
+        headerShown: false,
+        href: null, 
+      }}
+    name="community/join-requests-screen"
+    />
     </Tabs>
+        </>
   );
 };
 
